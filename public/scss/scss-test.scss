@@ -1,0 +1,8 @@
+// 變數
+
+//半透明白色
+$translucent-white: rgba(255,255,255,0.3);
+
+p {
+    background-color: $translucent-white;
+}
