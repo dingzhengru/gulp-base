@@ -4,6 +4,7 @@ const uglify = require('gulp-uglify');
 const uglifycss = require('gulp-uglifycss');
 const htmlmin = require('gulp-htmlmin');
 const sass = require('gulp-sass');
+const jshint = require('gulp-jshint');
 const browserSync = require('browser-sync').create();
 
 function watch_files() {
@@ -11,12 +12,13 @@ function watch_files() {
     gulp.watch("./public/css/**/*", gulp.series(css_compress));
     gulp.watch("./public/html/**/*", gulp.series(html_compress));
     gulp.watch("./public/scss/**/*", gulp.series(scss_compress));
+
+    gulp.watch("./public/js/**/*", gulp.series(js_hint));
     gulp.watch("./**/**/**", gulp.series(browserSyncReload));
 }
 
 function hello(done) { 
     console.log("hello");
-    console.log(sass)
     done();
 }
 
@@ -38,6 +40,13 @@ function browser_sync(done) {
 function browserSyncReload(done) {
   browserSync.reload();
   done();
+}
+
+function js_hint() {
+    return gulp.src('./public/**/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default')
+    );
 }
 
 function js_compress() {
