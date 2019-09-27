@@ -6,3 +6,4 @@ function test(){
     body.appendChild(newDiv).appendChild(newContent);
 }
 
+const a = []

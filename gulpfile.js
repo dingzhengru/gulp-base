@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const pipeline = require('readable-stream').pipeline;
 const uglify = require('gulp-uglify');
+const babel = require('gulp-babel');
 const uglifycss = require('gulp-uglifycss');
 const htmlmin = require('gulp-htmlmin');
 const sass = require('gulp-sass');
@@ -43,15 +44,26 @@ function browserSyncReload(done) {
 }
 
 function js_hint() {
-    return gulp.src('./public/**/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('default')
+    return pipeline(
+        gulp.src('./public/**/*.js'),
+        // from https://jshint.com/docs/options
+        jshint({ 
+            'browser' : true,
+             'asi' : true,
+             'esversion':6,
+             'globalstrict': true
+        }),
+        jshint.reporter('default')
     );
 }
+
 
 function js_compress() {
     return pipeline(
         gulp.src('./public/js/**/*.js'),
+        babel({
+            presets: ['@babel/env']
+        }),
         uglify(),
         gulp.dest('./public/min/js')
     );

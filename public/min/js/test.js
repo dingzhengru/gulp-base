@@ -1,1 +1,1 @@
-function test(){var e=document.getElementsByTagName("body")[0],t=document.createElement("div"),n=document.createTextNode("Hi this is new content");e.appendChild(t).appendChild(n)}
+"use strict";function test(){var e=document.getElementsByTagName("body")[0],t=document.createElement("div"),n=document.createTextNode("Hi this is new content");e.appendChild(t).appendChild(n)}var a=[];
