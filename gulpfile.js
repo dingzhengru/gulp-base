@@ -7,6 +7,7 @@ const htmlmin = require('gulp-htmlmin');
 const sass = require('gulp-sass');
 const jshint = require('gulp-jshint');
 const browserSync = require('browser-sync').create();
+const gls = require('gulp-live-server');
 
 function watch_files() {
     gulp.watch("./public/js/**/*", gulp.series(js_compress));
@@ -96,10 +97,16 @@ function scss_compress() {
     );
 }
 
+function serve(done){
+    var server = gls.static('/', 80);
+    server.start();
+}
+
+
 // gulp.task('browserSync', browserSync);
 gulp.task('js_compress', js_compress);
 gulp.task('hello', hello);
-
+gulp.task('serve', serve);
 gulp.task('default', gulp.parallel(js_compress));
 gulp.task('watch', gulp.parallel(watch_files, browser_sync));
 
