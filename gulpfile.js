@@ -15,7 +15,7 @@ function watch_files() {
     gulp.watch("./public/html/**/*", gulp.series(html_compress));
     gulp.watch("./public/scss/**/*", gulp.series(scss_compress));
 
-    gulp.watch("./public/js/**/*", gulp.series(js_hint));
+    // gulp.watch("./public/js/**/*", gulp.series(js_hint));
     gulp.watch("./**/**/**", gulp.series(browserSyncReload));
 }
 
@@ -31,7 +31,7 @@ function browser_sync(done) {
             baseDir: "./", 
             index: "index.html" 
         },
-        port: 8081, 
+        port: process.env.PORT || 8081, 
         // ui: false,
         // open: false
     });
@@ -98,7 +98,7 @@ function scss_compress() {
 }
 
 function serve(done){
-    var server = gls.static('/', 80);
+    var server = gls.static(['/', 'public', 'bower_components'], process.env.PORT || 80);
     server.start();
 }
 
